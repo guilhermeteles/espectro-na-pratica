@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Espectro na Prática">
+<meta property="og:description" content="Esquerda ou direita? Responda a casos concretos, não a rótulos. Cerca de 8 perguntas.">
+<meta name="theme-color" content="#E6E8E2">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Espectro na Prática</title>
+<meta name="description" content="Casos concretos para descobrir onde você está no espectro político, além dos rótulos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: uma coluna estreita como um santinho de campanha; a botoeira da urna (BRANCO / CORRIGE / CONFIRMA) conduz cada caso. */
+:root{
+  --bg:#E6E8E2; --surface:#F6F7F3; --ink:#1A1D1B; --muted:#58605A; --line:#C5CAC1; --line-soft:#D9DDD5;
+  --key:#1F2321; --key-ink:#F2F3EE; --sel:#E3ECDE; --sel-line:#2D8C44;
+  --branco:#FBFBF7; --branco-ink:#1A1D1B; --branco-line:#BCC1B8;
+  --corrige:#E8862A; --corrige-ink:#241402;
+  --confirma:#2D8C44; --confirma-ink:#F3FFF5;
+  --focus:#2763C9;
+  --s1:#8C2F3B; --s2:#B9545C; --s3:#D9A3A3; --s4:#A7ACA4; --s5:#98AFCF; --s6:#4F76A8; --s7:#25466F;
+  --f-display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121513; --surface:#1B1F1C; --ink:#E5E8E2; --muted:#9BA39C; --line:#3A403C; --line-soft:#2A2F2C;
+    --key:#0A0C0B; --key-ink:#E9EBE6; --sel:#1E2D21; --sel-line:#4DB866;
+    --branco:#E9EAE4; --branco-ink:#141615; --branco-line:#E9EAE4;
+    --corrige:#E58A33; --corrige-ink:#1E1103; --confirma:#329C4C; --confirma-ink:#F3FFF5;
+    --focus:#7EA8F0;
+    --s1:#C25563; --s2:#D57A80; --s3:#E2B2B1; --s4:#8D938B; --s5:#A7BEDD; --s6:#6E95C8; --s7:#4A6FA0;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121513; --surface:#1B1F1C; --ink:#E5E8E2; --muted:#9BA39C; --line:#3A403C; --line-soft:#2A2F2C;
+  --key:#0A0C0B; --key-ink:#E9EBE6; --sel:#1E2D21; --sel-line:#4DB866;
+  --branco:#E9EAE4; --branco-ink:#141615; --branco-line:#E9EAE4;
+  --corrige:#E58A33; --corrige-ink:#1E1103; --confirma:#329C4C; --confirma-ink:#F3FFF5;
+  --focus:#7EA8F0;
+  --s1:#C25563; --s2:#D57A80; --s3:#E2B2B1; --s4:#8D938B; --s5:#A7BEDD; --s6:#6E95C8; --s7:#4A6FA0;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:17px; line-height:1.5}
+.wrap{max-width:680px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:20px 56px; display:flex; flex-direction:column; gap:32px}
+button,input{font:inherit; color:inherit}
+:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+
+/* Cabeçalho */
+.top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; border-bottom:2px solid var(--ink); padding-bottom:10px}
+.mark{font-family:var(--f-display); font-stretch:72%; font-weight:850; text-transform:uppercase; font-size:1.25rem; letter-spacing:.01em; line-height:1}
+.mark span{font-weight:500}
+.tag{font-family:var(--f-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+
+.eyebrow{font-family:var(--f-mono); font-size:.74rem; font-weight:600; text-transform:uppercase; letter-spacing:.09em; color:var(--muted); margin:0}
+h1,h2{text-wrap:balance; margin:0}
+.screen{display:flex; flex-direction:column; gap:24px}
+
+/* Abertura */
+.hero h1{font-family:var(--f-display); font-stretch:68%; font-weight:850; text-transform:uppercase; font-size:clamp(2.6rem, 11vw, 4.4rem); line-height:.92; letter-spacing:-.005em}
+.hero h1 em{font-style:normal; color:var(--confirma)}
+.lede{margin:0; max-width:58ch; font-size:1.06rem}
+
+/* Régua do espectro */
+.ruler-block{display:flex; flex-direction:column; gap:8px}
+.ruler-wrap{position:relative; padding-top:18px}
+.ruler{display:grid; grid-template-columns:var(--cols); height:16px; border-radius:3px; overflow:hidden; gap:2px; background:var(--bg)}
+.ruler i{display:block}
+.ruler.thin{height:10px}
+.ruler-labels{display:grid; grid-template-columns:var(--cols); gap:2px; font-size:clamp(.6rem, 2.6vw, .76rem); line-height:1.2; color:var(--muted); text-align:center}
+.ruler-labels span{min-width:0; overflow-wrap:anywhere}
+.ruler-labels span.on{color:var(--ink); font-weight:700}
+.wrapcols{--cols:.85fr .9fr .8fr .9fr .8fr .9fr .85fr}
+.marker{position:absolute; top:0; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; transition:left .9s cubic-bezier(.2,.8,.2,1)}
+.marker::before{content:""; width:0; height:0; border-left:8px solid transparent; border-right:8px solid transparent; border-top:11px solid var(--ink)}
+.marker::after{content:""; width:2px; height:22px; background:var(--ink); margin-top:-1px}
+.thin-wrap{padding-top:12px}
+.thin-wrap .marker::before{border-left-width:6px; border-right-width:6px; border-top-width:8px}
+.thin-wrap .marker::after{height:13px}
+
+/* Autodefinição */
+fieldset{border:0; margin:0; padding:0; min-width:0}
+legend{padding:0; font-weight:700; font-size:1.02rem; margin-bottom:10px}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{position:relative}
+.chip input{position:absolute; opacity:0; width:1px; height:1px}
+.chip label{display:inline-block; padding:7px 12px; border:1px solid var(--line); border-radius:999px; background:var(--surface); cursor:pointer; font-size:.92rem}
+.chip input:checked + label{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.chip input:focus-visible + label{outline:3px solid var(--focus); outline-offset:2px}
+.note{margin:8px 0 0; font-size:.86rem; color:var(--muted)}
+
+/* Botões da urna */
+.keys{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px}
+.k{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; min-height:60px; border-radius:6px; border:1px solid transparent; cursor:pointer; font-family:var(--f-mono); font-weight:600; font-size:.92rem; letter-spacing:.07em; box-shadow:inset 0 -4px 0 rgba(0,0,0,.2); transition:transform .08s}
+.k small{font-family:var(--f-body); font-weight:400; font-size:.72rem; letter-spacing:0; text-transform:lowercase; opacity:.85}
+.k:active:not(:disabled){transform:translateY(2px); box-shadow:inset 0 -2px 0 rgba(0,0,0,.2)}
+.k-branco{background:var(--branco); color:var(--branco-ink); border-color:var(--branco-line)}
+.k-corrige{background:var(--corrige); color:var(--corrige-ink)}
+.k-confirma{background:var(--confirma); color:var(--confirma-ink)}
+.k:disabled{opacity:.42; cursor:not-allowed}
+.start-row{display:grid; grid-template-columns:1fr; gap:12px}
+.start-row .k{min-height:64px; font-size:1.05rem}
+
+/* Pergunta */
+.qhead{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap}
+.prog{font-family:var(--f-mono); font-size:.74rem; color:var(--muted); font-variant-numeric:tabular-nums}
+.bar{height:4px; background:var(--line-soft); border-radius:2px; overflow:hidden}
+.bar i{display:block; height:100%; width:0; background:var(--ink); transition:width .35s}
+.case{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:20px; display:flex; flex-direction:column; gap:12px}
+.case h2{font-family:var(--f-display); font-stretch:78%; font-weight:800; font-size:clamp(1.5rem, 5.5vw, 2rem); line-height:1.02; text-transform:uppercase}
+.case p{margin:0; max-width:62ch}
+details summary{cursor:pointer; font-family:var(--f-mono); font-size:.74rem; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+.notes ul{margin:10px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px}
+.notes li{position:relative; padding-left:16px; font-size:.93rem; color:var(--muted); max-width:62ch}
+.notes li::before{content:""; position:absolute; left:0; top:.6em; width:6px; height:6px; background:var(--muted)}
+.fade{animation:fade .35s ease-out}
+@keyframes fade{from{transform:translateY(6px)} to{transform:none}}
+
+.opts{display:flex; flex-direction:column; gap:10px}
+.opts legend{font-family:var(--f-display); font-stretch:85%; font-weight:750; font-size:1.2rem}
+.opt{position:relative}
+.opt input{position:absolute; opacity:0; width:1px; height:1px}
+.opt label{display:grid; grid-template-columns:34px 1fr; gap:12px; align-items:start; padding:12px 14px; border:1px solid var(--line); border-radius:6px; background:var(--surface); cursor:pointer}
+.opt label span:last-child{min-width:0; padding-top:4px}
+.num{display:grid; place-items:center; width:34px; height:34px; border-radius:5px; background:var(--key); color:var(--key-ink); font-family:var(--f-mono); font-weight:600; box-shadow:inset 0 -3px 0 rgba(255,255,255,.08)}
+.opt input:checked + label{border-color:var(--sel-line); background:var(--sel); box-shadow:0 0 0 1px var(--sel-line)}
+.opt input:checked + label .num{background:var(--confirma); color:var(--confirma-ink)}
+.opt input:focus-visible + label{outline:3px solid var(--focus); outline-offset:2px}
+.hint{margin:0; font-size:.8rem; color:var(--muted)}
+
+/* Resultado */
+.res-label{font-family:var(--f-display); font-stretch:66%; font-weight:900; text-transform:uppercase; font-size:clamp(3rem, 15vw, 5.6rem); line-height:.9}
+.axes{display:flex; flex-direction:column; gap:18px; background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:18px 20px}
+.axis{display:flex; flex-direction:column; gap:4px}
+.axis-head{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:.92rem}
+.axis-head b{font-weight:700}
+.axis-head span{color:var(--muted)}
+.axis-poles{display:flex; justify-content:space-between; font-size:.74rem; color:var(--muted); gap:8px}
+.compare{margin:0; padding:14px 16px; border-left:4px solid var(--ink); background:var(--surface); max-width:62ch}
+.desc{margin:0; max-width:62ch}
+.share{display:flex; flex-direction:column; gap:10px}
+.btn{display:flex; align-items:center; justify-content:center; text-align:center; min-height:52px; padding:10px 16px; border-radius:6px; font-weight:700; text-decoration:none; cursor:pointer; border:1px solid transparent}
+.btn-main{background:var(--confirma); color:var(--confirma-ink); box-shadow:inset 0 -4px 0 rgba(0,0,0,.2)}
+.btn-sec{background:var(--surface); color:var(--ink); border-color:var(--ink)}
+.btn-ghost{background:transparent; color:var(--ink); border-color:var(--line)}
+.copy-field{width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; background:var(--surface); font-family:var(--f-mono); font-size:.8rem}
+.answers ol{margin:12px 0 0; padding-left:22px; display:flex; flex-direction:column; gap:10px}
+.answers li{font-size:.93rem}
+.answers li b{display:block}
+.answers li span{color:var(--muted)}
+
+/* Rodapé */
+footer{border-top:1px solid var(--line); padding-top:16px; display:flex; flex-direction:column; gap:8px}
+footer p{margin:0; font-size:.86rem; color:var(--muted); max-width:62ch}
+footer h3{margin:0; font-family:var(--f-mono); font-size:.74rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink)}
+
+@media (min-width:560px){
+  .start-row{grid-template-columns:2fr 1fr}
+  .share{display:grid; grid-template-columns:1fr 1fr}
+  .share .btn-ghost, .share .copy-field{grid-column:1 / -1}
+}
+@media (prefers-reduced-motion: reduce){
+  .fade{animation:none} .marker,.bar i{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="mark">Espectro <span>na Prática</span></div>
+    <div class="tag">casos reais, não rótulos</div>
+  </header>
+
+  <main>
+    <!-- ABERTURA -->
+    <section class="screen" id="s-intro">
+      <div class="hero screen" style="gap:16px">
+        <h1>Esquerda ou direita? <em>Na prática.</em></h1>
+        <p class="lede">Você vai ler situações concretas do dia a dia brasileiro e escolher o que acha certo. Cada resposta define a próxima pergunta. Em cerca de 8 casos, o teste mostra onde você está no espectro, na economia e nos costumes.</p>
+      </div>
+
+      <div class="ruler-block wrapcols" aria-hidden="true">
+        <div class="ruler" id="intro-ruler"></div>
+        <div class="ruler-labels" id="intro-labels"></div>
+      </div>
+
+      <fieldset>
+        <legend>Antes de começar: como você se posiciona hoje?</legend>
+        <div class="chips" id="self-chips"></div>
+        <p class="note" id="self-note">Escolha uma opção para começar. Isso não entra no cálculo; serve para comparar com o resultado no final.</p>
+      </fieldset>
+
+      <div class="start-row">
+        <button class="k k-confirma" id="btn-start" type="button" disabled>COMEÇAR<small>cerca de 8 casos</small></button>
+        <a class="btn btn-sec" id="share-intro" href="#" target="_blank" rel="noopener">Enviar o teste pelo WhatsApp</a>
+      </div>
+    </section>
+
+    <!-- PERGUNTA -->
+    <section class="screen" id="s-q" hidden>
+      <div class="screen" style="gap:8px">
+        <div class="qhead">
+          <p class="eyebrow" id="q-eyebrow">Caso 1</p>
+          <span class="prog" id="q-prog"></span>
+        </div>
+        <div class="bar"><i id="q-bar"></i></div>
+      </div>
+
+      <article class="case fade" id="q-card">
+        <h2 id="q-title" tabindex="-1"></h2>
+        <p id="q-case"></p>
+        <details class="notes" open>
+          <summary>Observações sobre o caso</summary>
+          <ul id="q-notes"></ul>
+        </details>
+      </article>
+
+      <fieldset class="opts">
+        <legend id="q-ask"></legend>
+        <div class="opts" id="q-opts"></div>
+      </fieldset>
+
+      <div class="keys">
+        <button class="k k-branco" id="btn-branco" type="button">BRANCO<small>pular</small></button>
+        <button class="k k-corrige" id="btn-corrige" type="button">CORRIGE<small>voltar</small></button>
+        <button class="k k-confirma" id="btn-confirma" type="button" disabled>CONFIRMA<small>responder</small></button>
+      </div>
+      <p class="hint">No teclado: números escolhem, Enter confirma.</p>
+    </section>
+
+    <!-- RESULTADO -->
+    <section class="screen" id="s-res" hidden>
+      <div class="screen" style="gap:10px">
+        <p class="eyebrow">Seu resultado</p>
+        <h2 class="res-label" id="r-label" tabindex="-1"></h2>
+      </div>
+
+      <div class="ruler-block wrapcols">
+        <div class="ruler-wrap">
+          <div class="marker" id="r-marker"></div>
+          <div class="ruler" id="r-ruler"></div>
+        </div>
+        <div class="ruler-labels" id="r-labels"></div>
+      </div>
+
+      <div class="axes" id="r-axes"></div>
+
+      <p class="compare" id="r-compare" hidden></p>
+      <p class="desc" id="r-desc"></p>
+
+      <div class="share">
+        <a class="btn btn-main" id="share-res" href="#" target="_blank" rel="noopener">Compartilhar meu resultado no WhatsApp</a>
+        <a class="btn btn-sec" id="share-test" href="#" target="_blank" rel="noopener">Enviar o teste, sem meu resultado</a>
+        <button class="btn btn-ghost" id="btn-copy" type="button">Copiar link do teste</button>
+        <input class="copy-field" id="copy-field" type="text" readonly hidden aria-label="Link do teste">
+      </div>
+
+      <details class="answers">
+        <summary>Suas respostas</summary>
+        <ol id="r-answers"></ol>
+      </details>
+
+      <button class="k k-corrige" id="btn-restart" type="button" style="max-width:240px">REFAZER<small>começar de novo</small></button>
+    </section>
+  </main>
+
+  <footer>
+    <h3>Como funciona</h3>
+    <p>O teste mede dois eixos: economia e papel do Estado; costumes e segurança. Cada resposta ajusta uma estimativa da sua posição em cada eixo, e a próxima pergunta é a que mais ajuda a reduzir a dúvida naquele ponto, como num jogo de adivinhação. O resultado geral é a média dos dois eixos.</p>
+    <p>Os casos e as observações apresentam argumentos dos dois lados, e a ordem das alternativas é embaralhada. O resultado é uma aproximação, não um diagnóstico. Nenhuma resposta é guardada ou enviada.</p>
+  </footer>
+</div>
+
+<script>
+/*CORE-START*/
+const QUESTIONS = [
+  // ===== ECONOMIA (negativo = mais Estado e redistribuição; positivo = mais mercado) =====
+  { id:'E1', axis:'eco', tier:'broad', title:'A fila da cirurgia',
+    case:'Dona Lúcia, 62 anos, precisa operar o joelho. Pelo SUS, a previsão é de 14 meses de espera. No hospital particular, a cirurgia custa cerca de R$ 25 mil, que ela não tem.',
+    notes:['Cerca de 7 em cada 10 brasileiros dependem só do SUS.',
+      'Quem defende mais participação privada diz que concorrência e pagamento por resultado reduzem filas.',
+      'Quem defende o sistema público diz que a busca por lucro tende a deixar de lado pacientes caros e regiões pobres.'],
+    ask:'Como deveria funcionar a saúde no país?',
+    opts:[['Só saúde pública: hospitais e planos privados seriam incorporados a um sistema estatal único.',-3],
+      ['Fortalecer muito o SUS, mesmo com mais impostos. Planos privados ficam como complemento.',-1.5],
+      ['Manter o SUS e contratar hospitais privados para zerar filas, pagando por cirurgia feita.',0],
+      ['O governo daria um voucher para cada pessoa escolher onde se tratar, no público ou no privado.',1.5],
+      ['Cada um paga o próprio plano. O Estado atenderia só quem comprovadamente não pode pagar.',3]] },
+
+  { id:'E2', axis:'eco', tier:'broad', title:'O motorista de aplicativo',
+    case:'Marcos dirige 10 horas por dia para um aplicativo. Não tem carteira assinada. No mês em que quebrou o braço, ficou sem nenhuma renda.',
+    notes:['Muitos motoristas dizem valorizar a liberdade de escolher quando e quanto trabalhar.',
+      'Sem contribuição ao INSS, doença ou acidente deixam a família sem renda e sem aposentadoria.',
+      'As empresas dizem que os encargos da CLT encareceriam as corridas e reduziriam o número de motoristas.'],
+    ask:'O que deveria mudar?',
+    opts:[['Os aplicativos deveriam passar a ser públicos ou cooperativas dos próprios motoristas.',-3],
+      ['Reconhecer vínculo de emprego: carteira assinada, férias, 13º e INSS pagos pela empresa.',-1.5],
+      ['Criar uma categoria nova: ganho mínimo por hora e INSS dividido entre empresa e motorista, sem CLT.',0],
+      ['Deixar como está. No máximo, facilitar para o motorista contribuir por conta própria, como MEI.',1.5],
+      ['Nada. O contrato é livre, e o governo nem deveria obrigar ninguém a contribuir para o INSS.',3]] },
+
+  { id:'E3', axis:'eco', tier:'left', title:'A fábrica que vai embora',
+    case:'Uma multinacional anuncia que vai fechar sua fábrica numa cidade de 40 mil habitantes e levar a produção para outro país. São 2.000 empregos, a maior empregadora da cidade.',
+    notes:['Incentivos para segurar empresas custam dinheiro público e, às vezes, só adiam o fechamento.',
+      'Cidades pequenas que perdem a principal empregadora costumam levar anos para se recuperar.',
+      'A empresa diz que, sem mudar, perderia competitividade e poderia demitir ainda mais no futuro.'],
+    ask:'O que o governo deveria fazer?',
+    opts:[['Desapropriar a fábrica e entregar a gestão aos trabalhadores.',-3],
+      ['Proibir demissões em massa sem acordo com o sindicato, com multas pesadas.',-2],
+      ['Oferecer crédito público ou desconto de impostos em troca de manter parte dos empregos.',-0.8],
+      ['Respeitar a decisão da empresa e investir em requalificação e em atrair novos negócios.',1]] },
+
+  { id:'E4', axis:'eco', tier:'left', title:'O imposto dos muito ricos',
+    case:'Uma proposta cria um imposto anual de 2% sobre patrimônios acima de R$ 10 milhões. O dinheiro iria para creches públicas.',
+    notes:['A Constituição de 1988 prevê um imposto sobre grandes fortunas, mas ele nunca foi regulamentado.',
+      'A França trocou o seu, em 2018, por um imposto só sobre imóveis, citando a saída de ricos do país. Suíça, Noruega e Espanha mantêm impostos sobre patrimônio.',
+      'No Brasil, os impostos sobre consumo pesam proporcionalmente mais no orçamento dos mais pobres.'],
+    ask:'Qual é a sua posição?',
+    opts:[['É pouco. Deveria haver um teto de riqueza, e o que passasse dele iria para o Estado.',-3],
+      ['Aprovar como está proposto.',-2],
+      ['Melhor taxar mais a renda dos mais ricos, como lucros e dividendos, sem imposto sobre patrimônio.',-0.8],
+      ['Não criar imposto novo. O governo deveria cortar gastos antes de cobrar mais.',1]] },
+
+  { id:'E5', axis:'eco', tier:'center', title:'O preço da gasolina',
+    case:'O petróleo dispara no mercado internacional e a gasolina sobe 15% em um mês. A Petrobras, controlada pelo governo, está tendo lucro recorde.',
+    notes:['O governo controla a Petrobras, mas a empresa também tem milhares de acionistas privados, no Brasil e no exterior.',
+      'Segurar preços abaixo do mercado já causou perdas bilionárias à empresa no passado.',
+      'Seguir o mercado repassa toda a alta ao consumidor, inclusive ao frete e aos alimentos.'],
+    ask:'O que deveria ser feito?',
+    opts:[['A Petrobras deveria segurar o preço, mesmo lucrando menos.',-1.5],
+      ['Criar um fundo que amorteça altas bruscas, sem congelar o preço.',-0.5],
+      ['Seguir o preço internacional e usar parte dos lucros para ajudar diretamente os mais pobres.',0.5],
+      ['Privatizar a Petrobras e deixar a concorrência definir os preços.',1.5]] },
+
+  { id:'E6', axis:'eco', tier:'center', title:'O emprego da Joana',
+    case:'Joana cria dois filhos e recebe Bolsa Família. Ela consegue um emprego com carteira assinada, que deixa a renda da família um pouco acima do limite do programa.',
+    notes:['Existe uma regra de transição: quem passa do limite continua recebendo parte do benefício por um tempo.',
+      'Estudos no Brasil, em geral, encontram efeito pequeno do programa sobre a decisão de trabalhar.',
+      'Críticos apontam fraudes no cadastro e defendem uma porta de saída mais clara.'],
+    ask:'Como o programa deveria tratar casos assim?',
+    opts:[['Ampliar o programa até virar uma renda básica para todos, sem condições.',-1.5],
+      ['Manter a transição gradual, para que ninguém perca dinheiro ao conseguir um emprego.',-0.5],
+      ['Manter o programa, mas com regras de saída mais rígidas e mais fiscalização.',0.5],
+      ['Reduzir o programa aos poucos. O foco deveria ser crescimento e emprego, não transferência de renda.',1.5]] },
+
+  { id:'E7', axis:'eco', tier:'right', title:'A água e o esgoto',
+    case:'Na sua cidade, só metade das casas tem esgoto tratado. A companhia estadual diz que não tem dinheiro para investir. O governo propõe privatizá-la.',
+    notes:['O Marco do Saneamento, de 2020, fixou a meta de levar água a 99% e esgoto a 90% da população até 2033.',
+      'Há concessões que ampliaram bastante a cobertura, e há cidades que retomaram o serviço depois de altas na tarifa, como Paris em 2010.',
+      'Críticos lembram que ninguém pode trocar de empresa de água se o serviço for ruim.'],
+    ask:'O que fazer?',
+    opts:[['Não privatizar. O Estado deveria investir na companhia pública, mesmo que precise se endividar.',-1],
+      ['Conceder o serviço por prazo fixo, com metas, multas e a possibilidade de retomar se falhar.',0.3],
+      ['Privatizar a companhia, com uma agência reguladora controlando as tarifas.',1.2],
+      ['Privatizar esta e as demais estatais de serviços, com regulação leve.',2.2],
+      ['Privatizar e liberar as tarifas. Regulação afasta investimento.',3]] },
+
+  { id:'E8', axis:'eco', tier:'right', title:'A vaga na padaria',
+    case:'Seu Antônio tem uma padaria com 4 funcionários e quer contratar mais um. Somando encargos e benefícios, cada empregado custa bem mais do que o salário que recebe. Ele desistiu de contratar.',
+    notes:['Os encargos financiam aposentadoria, FGTS, férias e 13º do próprio trabalhador.',
+      'Pequenas empresas já pagam menos impostos no Simples Nacional, mas os custos trabalhistas continuam pesando.',
+      'Quase 4 em cada 10 trabalhadores brasileiros estão na informalidade.'],
+    ask:'O que deveria mudar?',
+    opts:[['Nada. Direitos trabalhistas não devem ser reduzidos, e o mínimo deve seguir subindo acima da inflação.',-1],
+      ['Reduzir encargos para pequenos negócios, mantendo os direitos do trabalhador.',0.3],
+      ['Criar contratos mais flexíveis e baratos para jovens e para o primeiro emprego.',1.2],
+      ['Reduzir encargos e direitos para todos, como a multa do FGTS, e deixar mais pontos para negociação direta.',2.2],
+      ['Acabar com a CLT e com o salário mínimo. Patrão e empregado negociam livremente.',3]] },
+
+  // ===== COSTUMES E SEGURANÇA (negativo = progressista; positivo = conservador) =====
+  { id:'S1', axis:'soc', tier:'broad', title:'O assalto no ônibus',
+    case:'Um adolescente de 16 anos participa de um assalto a ônibus em que um passageiro leva uma facada e sobrevive. Ele já tinha uma passagem por furto.',
+    notes:['Pelo ECA, o tempo máximo de internação de um adolescente é de 3 anos.',
+      'Uma proposta para reduzir a maioridade para 16 anos em crimes graves passou na Câmara em 2015 e parou no Senado.',
+      'Quem defende a redução diz que a punição atual não intimida. Quem é contra diz que presídios de adultos aproximam jovens das facções.'],
+    ask:'O que deveria acontecer com ele?',
+    opts:[['Medidas em liberdade, com escola e acompanhamento. Prender adolescentes só produz mais crime.',-3],
+      ['Internação como o ECA já prevê, com escola e acompanhamento psicológico.',-1.5],
+      ['Manter o ECA, mas aumentar o tempo de internação em crimes violentos.',0],
+      ['Reduzir a maioridade penal para 16 anos em crimes violentos.',1.5],
+      ['Reduzir a maioridade para todos os crimes e endurecer as penas em geral.',3]] },
+
+  { id:'S2', axis:'soc', tier:'broad', title:'O vizinho e a maconha',
+    case:'Seu vizinho, 30 anos, trabalha, paga as contas e fuma maconha em casa nos fins de semana, sem incomodar ninguém.',
+    notes:['Em 2024, o STF decidiu que portar até 40 g de maconha para uso próprio não é crime. Continua proibido, mas sem pena criminal.',
+      'Defensores da legalização dizem que a proibição financia o tráfico e enche presídios. Críticos dizem que facilitar o acesso aumenta o consumo e a dependência.',
+      'Uruguai e Canadá legalizaram a maconha com venda regulada.'],
+    ask:'Como a lei deveria tratar isso?',
+    opts:[['Legalizar todas as drogas, com venda regulada como a de álcool e cigarro.',-3],
+      ['Legalizar e regular só a maconha.',-1.5],
+      ['Não é caso de polícia, mas a venda deve continuar proibida.',0],
+      ['O usuário deveria receber advertência e tratamento obrigatório.',1.5],
+      ['O usuário deveria ser punido criminalmente. Quem consome financia o tráfico.',3]] },
+
+  { id:'S3', axis:'soc', tier:'left', title:'A aula sobre respeito',
+    case:'Depois de vários casos de bullying contra um aluno gay, uma escola pública quer incluir no currículo aulas sobre diversidade sexual. Um grupo de pais é contra.',
+    notes:['O STF já derrubou leis municipais que proibiam escolas de tratar de gênero e sexualidade.',
+      'Os pais contrários dizem que o tema envolve valores e cabe à família. Os favoráveis dizem que a escola precisa proteger todos os alunos.'],
+    ask:'O que a escola deveria fazer?',
+    opts:[['Incluir em todas as séries, desde a educação infantil. Os pais não deveriam poder vetar.',-3],
+      ['Incluir o tema, com conteúdo adaptado a cada idade.',-2],
+      ['Tratar de respeito e combate ao bullying em geral, sem aulas específicas sobre sexualidade.',-0.5],
+      ['Não tratar do tema. Isso é assunto da família.',1.2]] },
+
+  { id:'S4', axis:'soc', tier:'left', title:'A última vaga de Medicina',
+    case:'Duas estudantes disputam a última vaga de Medicina numa universidade federal. Ana, negra, de escola pública, tirou 720. Beatriz, branca, de escola particular, tirou 735. Pelo sistema de cotas, Ana entra e Beatriz fica de fora.',
+    notes:['A Lei de Cotas, de 2012, reserva metade das vagas das federais para alunos de escola pública, com parte delas para pretos, pardos, indígenas e pessoas de baixa renda.',
+      'Vários estudos mostram que o desempenho dos cotistas na graduação é parecido com o dos demais alunos.',
+      'Críticos do critério racial dizem que ele é difícil de verificar e que o critério de renda já bastaria.'],
+    ask:'Qual é a sua posição?',
+    opts:[['As cotas são pouco. O vestibular deveria acabar e a universidade ser aberta a todos.',-3],
+      ['As cotas raciais e sociais são justas e devem continuar.',-2],
+      ['Cotas sim, mas só por renda e escola pública, sem critério racial.',-0.3],
+      ['Sem cotas. A vaga deve ser de quem tirou a maior nota.',1.5]] },
+
+  { id:'S5', axis:'soc', tier:'center', title:'A arma do comerciante',
+    case:'Seu Jorge tem um mercadinho e foi assaltado duas vezes este ano. Ele quer ter um revólver em casa e no estabelecimento.',
+    notes:['Estudos associam mais armas em circulação a mais mortes por arma de fogo, inclusive suicídios e acidentes domésticos.',
+      'Defensores do acesso dizem que o criminoso já está armado e que o cidadão honesto fica indefeso.',
+      'Hoje, ter arma exige registro, curso, exame psicológico e ficha limpa, entre outros requisitos.'],
+    ask:'Qual deveria ser a regra?',
+    opts:[['Não deveria poder. Só as forças de segurança deveriam ter armas.',-1.5],
+      ['Pode, com regras rígidas como as atuais e fiscalização séria.',-0.5],
+      ['Pode, com regras mais simples, inclusive no próprio comércio. Andar armado na rua continua restrito.',0.6],
+      ['Todo adulto sem antecedentes deveria poder comprar armas e andar armado.',1.6]] },
+
+  { id:'S6', axis:'soc', tier:'center', title:'A operação na comunidade',
+    case:'Uma operação policial numa comunidade termina com 10 mortos. A polícia diz que todos eram criminosos e atiraram primeiro. Moradores dizem que houve execuções.',
+    notes:['Em São Paulo, estudos associaram as câmeras corporais à queda das mortes cometidas por policiais.',
+      'Policiais também morrem em confrontos, e facções controlam territórios inteiros em várias cidades.',
+      'Pela Constituição, cabe ao Ministério Público o controle externo da atividade policial.'],
+    ask:'O que deveria acontecer?',
+    opts:[['Suspender operações desse tipo e rever o modelo de polícia militarizada.',-1.6],
+      ['Investigar cada morte com perícia independente e exigir câmeras corporais em toda operação.',-0.5],
+      ['Apoiar a polícia, mas com câmeras e perícia sempre que houver morte.',0.5],
+      ['A polícia está em guerra contra o crime organizado. Câmeras e investigações atrapalham o trabalho.',1.8]] },
+
+  { id:'S7', axis:'soc', tier:'right', title:'O crime contra a criança',
+    case:'Um homem é condenado por sequestrar e matar uma criança de 8 anos. A família e boa parte da cidade pedem a pena mais dura possível.',
+    notes:['A Constituição proíbe pena de morte (salvo em guerra declarada) e prisão perpétua. Para a maioria dos juristas, isso não pode ser mudado nem por emenda.',
+      'Desde 2019, o tempo máximo de prisão no Brasil é de 40 anos.',
+      'Pesquisas não encontram evidência consistente de que a pena de morte reduza homicídios.'],
+    ask:'Qual seria a punição justa?',
+    opts:[['Uma pena longa, com foco também em recuperação e chance de reintegração.',-1],
+      ['Pena máxima, sem redução nem saída antecipada.',0.6],
+      ['Prisão perpétua.',2],
+      ['Pena de morte.',3]] },
+
+  { id:'S8', axis:'soc', tier:'right', title:'Carla e Renata',
+    case:'Carla e Renata vivem juntas há 8 anos. Querem se casar no cartório e adotar uma criança que está num abrigo há 3 anos.',
+    notes:['O STF reconheceu a união entre pessoas do mesmo sexo em 2011, e desde 2013 os cartórios são obrigados a fazer o casamento.',
+      'A maioria dos estudos não encontra prejuízo no desenvolvimento de filhos criados por casais do mesmo sexo.',
+      'Quem é contra costuma argumentar com base na religião ou na ideia de que a criança precisa de pai e mãe.'],
+    ask:'O que deveria ser permitido?',
+    opts:[['Casamento e adoção, como para qualquer casal.',-1],
+      ['Casamento sim, mas a adoção deveria dar preferência a casais de homem e mulher.',0.8],
+      ['Só uma união civil, para garantir herança e bens, sem casamento nem adoção.',2],
+      ['Nada. O Estado não deveria reconhecer esse tipo de união.',3]] },
+];
+
+const QMAP = Object.fromEntries(QUESTIONS.map(q => [q.id, q]));
+const GRID = Array.from({length:25}, (_, i) => -3 + i * 0.25);
+const SIGMA = 0.9, LAPSE = 0.06;
+const RULES = { min:8, max:10, hardMax:12, sd:0.55 };
+const CUTS = [-2.15, -1.25, -0.45, 0.45, 1.25, 2.15];
+const LIK = {};
+
+function likTable(q){
+  if (LIK[q.id]) return LIK[q.id];
+  const n = q.opts.length;
+  const t = q.opts.map(() => new Array(GRID.length));
+  GRID.forEach((th, g) => {
+    const w = q.opts.map(o => Math.exp(-((th - o[1]) ** 2) / (2 * SIGMA * SIGMA)));
+    const s = w.reduce((a, b) => a + b, 0);
+    w.forEach((wi, k) => { t[k][g] = (1 - LAPSE) * wi / s + LAPSE / n; });
+  });
+  return (LIK[q.id] = t);
+}
+function posterior(axis, history){
+  let p = GRID.map(() => 1);
+  for (const h of history){
+    if (h.k == null) continue;
+    const q = QMAP[h.id];
+    if (q.axis !== axis) continue;
+    const L = likTable(q)[h.k];
+    p = p.map((v, i) => v * L[i]);
+  }
+  const s = p.reduce((a, b) => a + b, 0);
+  return p.map(v => v / s);
+}
+function stats(p){
+  let m = 0; p.forEach((v, i) => { m += v * GRID[i]; });
+  let va = 0; p.forEach((v, i) => { va += v * (GRID[i] - m) ** 2; });
+  return { mean:m, sd:Math.sqrt(va) };
+}
+function expectedSd(q, post){
+  let e = 0;
+  likTable(q).forEach(L => {
+    const joint = post.map((v, i) => v * L[i]);
+    const pk = joint.reduce((a, b) => a + b, 0);
+    if (pk > 1e-12) e += pk * stats(joint.map(v => v / pk)).sd;
+  });
+  return e;
+}
+function chooseNext(history, rnd = Math.random){
+  const asked = new Set(history.map(h => h.id));
+  const answered = history.filter(h => h.k != null);
+  const cnt = { eco:0, soc:0 };
+  answered.forEach(h => { cnt[QMAP[h.id].axis]++; });
+  const pE = posterior('eco', history), pS = posterior('soc', history);
+  const sE = stats(pE), sS = stats(pS);
+  if (history.length >= RULES.hardMax) return null;
+  if (answered.length >= RULES.min && (answered.length >= RULES.max || (sE.sd < RULES.sd && sS.sd < RULES.sd))) return null;
+  const pool = QUESTIONS.filter(q => !asked.has(q.id));
+  if (!pool.length) return null;
+  for (const ax of ['eco', 'soc']){
+    if (!history.some(h => QMAP[h.id].axis === ax)){
+      const b = pool.filter(q => q.axis === ax && q.tier === 'broad');
+      if (b.length) return b[Math.floor(rnd() * b.length)];
+    }
+  }
+  let axis = Math.abs(cnt.eco - cnt.soc) >= 2 ? (cnt.eco < cnt.soc ? 'eco' : 'soc') : (sE.sd >= sS.sd ? 'eco' : 'soc');
+  let cands = pool.filter(q => q.axis === axis);
+  if (!cands.length){ axis = axis === 'eco' ? 'soc' : 'eco'; cands = pool.filter(q => q.axis === axis); }
+  const post = axis === 'eco' ? pE : pS;
+  let best = null, bv = Infinity;
+  cands.forEach(q => { const v = expectedSd(q, post) + rnd() * 0.01; if (v < bv){ bv = v; best = q; } });
+  return best;
+}
+function category(x){ let i = 0; while (i < CUTS.length && x > CUTS[i]) i++; return i; }
+function computeResult(history){
+  const e = stats(posterior('eco', history)), s = stats(posterior('soc', history));
+  const overall = (e.mean + s.mean) / 2;
+  return { eco:e, soc:s, overall, cat:category(overall), catEco:category(e.mean), catSoc:category(s.mean) };
+}
+/*CORE-END*/
+
+// ===== Interface =====
+const SHARE_URL = location.origin + location.pathname.replace(/index\.html$/, '');
+const LABELS = ['Extrema-esquerda','Esquerda','Centro-esquerda','Centro','Centro-direita','Direita','Extrema-direita'];
+const RULER_LABELS = ['Extrema esquerda','Esquerda','Centro-esquerda','Centro','Centro-direita','Direita','Extrema direita'];
+const DESC = [
+  'Você tende a defender mudanças estruturais profundas: controle público ou coletivo de grandes empresas e serviços, forte redistribuição e ampliação radical de direitos e liberdades individuais.',
+  'Você tende a defender um Estado forte em saúde, educação e direitos trabalhistas, impostos maiores para os mais ricos e prioridade para a igualdade e para os direitos de minorias.',
+  'Você tende a aceitar a economia de mercado, mas com uma rede de proteção social ampla, regulação e reformas graduais com foco em reduzir desigualdades.',
+  'Você tende a decidir caso a caso, combinando ideias dos dois lados, e prefere soluções negociadas e mudanças graduais a rupturas.',
+  'Você tende a ver o mercado como motor da economia, com um Estado mais enxuto e eficiente, programas sociais focalizados e posições moderadas em costumes e segurança.',
+  'Você tende a defender menos Estado e menos impostos, mais liberdade econômica, e dá muito peso a ordem, segurança, família e tradição.',
+  'Você tende a defender rupturas profundas no outro sentido: Estado mínimo na economia, punições muito mais duras e forte rejeição às mudanças recentes nos costumes.'
+];
+const AXES = {
+  eco:{ name:'Economia e papel do Estado', left:'mais Estado', right:'mais mercado', word:'economia' },
+  soc:{ name:'Costumes e segurança', left:'mais progressista', right:'mais conservador', word:'costumes e segurança' }
+};
+const SEG_W = [.85,.9,.8,.9,.8,.9,.85];
+
+const $ = id => document.getElementById(id);
+const state = { self:null, history:[], current:null, sel:null, order:{} };
+
+function lower(i){ return LABELS[i].toLowerCase(); }
+function pct(x){ return Math.max(1.5, Math.min(98.5, (x + 3) / 6 * 100)); }
+function wa(text){ return 'https://wa.me/?text=' + encodeURIComponent(text); }
+function testText(){ return 'Faz esse teste? São situações concretas, umas 8 perguntas, e no fim ele mostra onde você fica no espectro político, da extrema-esquerda à extrema-direita: ' + SHARE_URL; }
+
+function fillRuler(el, thin){
+  el.innerHTML = SEG_W.map((_, i) => `<i style="background:var(--s${i + 1})"></i>`).join('');
+  if (thin) el.classList.add('thin');
+}
+function fillLabels(el, on){
+  el.innerHTML = RULER_LABELS.map((t, i) => `<span class="${i === on ? 'on' : ''}">${t}</span>`).join('');
+}
+
+// Abertura
+fillRuler($('intro-ruler'));
+fillLabels($('intro-labels'), -1);
+$('self-chips').innerHTML = LABELS.concat(['Não sei / prefiro não dizer']).map((t, i) => {
+  const v = i < 7 ? i : '';
+  return `<div class="chip"><input type="radio" name="self" id="self-${i}" value="${v}"><label for="self-${i}">${t}</label></div>`;
+}).join('');
+$('self-chips').addEventListener('change', () => { $('btn-start').disabled = false; });
+$('share-intro').href = wa(testText());
+
+function show(id){
+  ['s-intro', 's-q', 's-res'].forEach(s => { $(s).hidden = s !== id; });
+  window.scrollTo(0, 0);
+}
+
+$('btn-start').addEventListener('click', () => {
+  const picked = document.querySelector('input[name="self"]:checked');
+  if (!picked) return;
+  state.self = picked.value === '' ? null : Number(picked.value);
+  state.history = []; state.order = {};
+  next();
+});
+
+function next(){
+  const q = chooseNext(state.history);
+  if (!q){ showResult(); return; }
+  state.current = q; state.sel = null;
+  renderQ();
+}
+
+function orderFor(q){
+  if (!state.order[q.id]){
+    const idx = q.opts.map((_, i) => i);
+    for (let i = idx.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; }
+    state.order[q.id] = idx;
+  }
+  return state.order[q.id];
+}
+
+function renderQ(){
+  const q = state.current;
+  const n = state.history.length + 1;
+  const answered = state.history.filter(h => h.k != null).length;
+  show('s-q');
+  $('q-eyebrow').textContent = `Caso ${n} · ${AXES[q.axis].name}`;
+  if (answered >= RULES.min){
+    $('q-prog').textContent = 'Pergunta extra para afinar';
+    $('q-bar').style.width = '100%';
+  } else {
+    $('q-prog').textContent = `${n} de cerca de ${RULES.min}`;
+    $('q-bar').style.width = Math.min(100, (n - 1) / RULES.min * 100) + '%';
+  }
+  $('q-title').textContent = q.title;
+  $('q-case').textContent = q.case;
+  $('q-notes').innerHTML = q.notes.map(t => `<li>${t}</li>`).join('');
+  $('q-ask').textContent = q.ask;
+  const order = orderFor(q);
+  $('q-opts').innerHTML = order.map((k, pos) => `
+    <div class="opt">
+      <input type="radio" name="opt" id="opt-${pos}" value="${k}" ${state.sel === k ? 'checked' : ''}>
+      <label for="opt-${pos}"><span class="num">${pos + 1}</span><span>${q.opts[k][0]}</span></label>
+    </div>`).join('');
+  $('btn-confirma').disabled = state.sel == null;
+  const card = $('q-card');
+  card.classList.remove('fade'); void card.offsetWidth; card.classList.add('fade');
+  $('q-title').focus({ preventScroll:true });
+}
+
+$('q-opts').addEventListener('change', e => {
+  if (e.target.name === 'opt'){ state.sel = Number(e.target.value); $('btn-confirma').disabled = false; }
+});
+$('btn-confirma').addEventListener('click', () => {
+  if (state.sel == null) return;
+  state.history.push({ id:state.current.id, k:state.sel });
+  next();
+});
+$('btn-branco').addEventListener('click', () => {
+  state.history.push({ id:state.current.id, k:null });
+  next();
+});
+$('btn-corrige').addEventListener('click', () => {
+  if (!state.history.length){ show('s-intro'); return; }
+  const last = state.history.pop();
+  state.current = QMAP[last.id]; state.sel = last.k;
+  renderQ();
+});
+document.addEventListener('keydown', e => {
+  if ($('s-q').hidden || e.altKey || e.ctrlKey || e.metaKey) return;
+  const n = parseInt(e.key, 10);
+  const order = state.current ? orderFor(state.current) : [];
+  if (n >= 1 && n <= order.length){
+    const input = $('opt-' + (n - 1));
+    input.checked = true; input.focus();
+    state.sel = Number(input.value); $('btn-confirma').disabled = false;
+  } else if (e.key === 'Enter' && !['BUTTON', 'A', 'SUMMARY'].includes(e.target.tagName) && state.sel != null){
+    e.preventDefault(); $('btn-confirma').click();
+  }
+});
+
+function showResult(){
+  const r = computeResult(state.history);
+  show('s-res');
+  $('r-label').textContent = LABELS[r.cat];
+  fillRuler($('r-ruler'));
+  fillLabels($('r-labels'), r.cat);
+  const marker = $('r-marker');
+  marker.style.left = '50%';
+  requestAnimationFrame(() => requestAnimationFrame(() => { marker.style.left = pct(r.overall) + '%'; }));
+
+  $('r-axes').innerHTML = ['eco', 'soc'].map(ax => {
+    const s = r[ax], c = ax === 'eco' ? r.catEco : r.catSoc;
+    return `<div class="axis">
+      <div class="axis-head"><b>${AXES[ax].name}</b><span>${LABELS[c]}</span></div>
+      <div class="ruler-wrap thin-wrap wrapcols">
+        <div class="marker" style="left:${pct(s.mean)}%"></div>
+        <div class="ruler thin">${SEG_W.map((_, i) => `<i style="background:var(--s${i + 1})"></i>`).join('')}</div>
+      </div>
+      <div class="axis-poles"><span>${AXES[ax].left}</span><span>${AXES[ax].right}</span></div>
+    </div>`;
+  }).join('');
+
+  let desc = DESC[r.cat];
+  if (Math.abs(r.eco.mean - r.soc.mean) >= 1.3){
+    desc += ` Suas posições se dividem: na economia, ${lower(r.catEco)}; nos costumes e na segurança, ${lower(r.catSoc)}. O rótulo geral é a média dos dois.`;
+  }
+  $('r-desc').textContent = desc;
+
+  const cmp = $('r-compare');
+  if (state.self == null){ cmp.hidden = true; }
+  else {
+    const d = r.cat - state.self;
+    let t;
+    if (d === 0) t = `Você se definiu como ${lower(state.self)}, e suas respostas aos casos confirmam isso.`;
+    else if (Math.abs(d) === 1) t = `Você se definiu como ${lower(state.self)}. Suas respostas ficaram bem perto disso, em ${lower(r.cat)}.`;
+    else {
+      const gapEco = Math.abs(r.catEco - state.self), gapSoc = Math.abs(r.catSoc - state.self);
+      const where = gapEco >= gapSoc ? AXES.eco.word : AXES.soc.word;
+      t = `Você se definiu como ${lower(state.self)}, mas suas respostas aos casos ficaram em ${lower(r.cat)}, ${d < 0 ? 'mais à esquerda' : 'mais à direita'} do que o rótulo que você escolheu. A maior diferença está nas suas respostas sobre ${where}.`;
+    }
+    cmp.textContent = t; cmp.hidden = false;
+  }
+
+  $('share-res').href = wa(`Fiz o teste Espectro na Prática e deu ${LABELS[r.cat]} (economia: ${lower(r.catEco)}; costumes: ${lower(r.catSoc)}). São casos concretos, umas 8 perguntas. Faça o seu: ${SHARE_URL}`);
+  $('share-test').href = wa(testText());
+  $('copy-field').hidden = true;
+
+  $('r-answers').innerHTML = state.history.map(h => {
+    const q = QMAP[h.id];
+    return `<li><b>${q.title}</b><span>${h.k == null ? 'Em branco' : q.opts[h.k][0]}</span></li>`;
+  }).join('');
+  $('r-label').focus({ preventScroll:true });
+}
+
+$('btn-copy').addEventListener('click', () => {
+  const btn = $('btn-copy'), field = $('copy-field');
+  const fallback = () => { field.value = SHARE_URL; field.hidden = false; field.focus(); field.select(); btn.textContent = 'Selecione e copie o link abaixo'; };
+  try {
+    navigator.clipboard.writeText(SHARE_URL).then(() => { btn.textContent = 'Link copiado'; setTimeout(() => { btn.textContent = 'Copiar link do teste'; }, 2200); }, fallback);
+  } catch (err){ fallback(); }
+});
+$('btn-restart').addEventListener('click', () => { show('s-intro'); });
+</script>
+
+</body>
+</html>
