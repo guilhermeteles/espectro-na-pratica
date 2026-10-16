@@ -7,6 +7,7 @@
 <meta property="og:title" content="Espectro na Prática">
 <meta property="og:description" content="Esquerda ou direita? Responda a casos concretos, não a rótulos. Cerca de 8 perguntas.">
 <meta name="theme-color" content="#E6E8E2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22%3E%3Cstop offset=%220%22 stop-color=%22%23B9545C%22/%3E%3Cstop offset=%220.5%22 stop-color=%22%23A7ACA4%22/%3E%3Cstop offset=%221%22 stop-color=%22%234F76A8%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%222%22 y=%2212%22 width=%2228%22 height=%228%22 rx=%224%22 fill=%22url(%23g)%22/%3E%3Ccircle cx=%2219%22 cy=%2216%22 r=%227%22 fill=%22%23fff%22 stroke=%22%231A1D1B%22 stroke-width=%223%22/%3E%3C/svg%3E">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Espectro na Prática</title>
 <meta name="description" content="Casos concretos para descobrir onde você está no espectro político, além dos rótulos.">
@@ -17,24 +18,27 @@
 /* Layout: uma coluna estreita como um santinho de campanha; a botoeira da urna (BRANCO / CORRIGE / CONFIRMA) conduz cada caso. */
 :root{
   --bg:#E6E8E2; --surface:#F6F7F3; --ink:#1A1D1B; --muted:#58605A; --line:#C5CAC1; --line-soft:#D9DDD5;
-  --key:#1F2321; --key-ink:#F2F3EE; --sel:#E3ECDE; --sel-line:#2D8C44;
+  --key:#1F2321; --key-ink:#F2F3EE; --sel:#E3ECDE; --sel-line:#1F6E35;
   --branco:#FBFBF7; --branco-ink:#1A1D1B; --branco-line:#BCC1B8;
   --corrige:#E8862A; --corrige-ink:#241402;
-  --confirma:#2D8C44; --confirma-ink:#F3FFF5;
+  --confirma:#1F6E35; --confirma-ink:#FFFFFF;
   --focus:#2763C9;
   --s1:#8C2F3B; --s2:#B9545C; --s3:#D9A3A3; --s4:#A7ACA4; --s5:#98AFCF; --s6:#4F76A8; --s7:#25466F;
   --f-display:"Archivo","Arial Narrow",Arial,sans-serif;
   --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --bub-base:.24;
+  --grad:linear-gradient(90deg, var(--s1) 7%, var(--s2) 21.7%, var(--s3) 35.8%, var(--s4) 50%, var(--s5) 64.2%, var(--s6) 78.3%, var(--s7) 93%);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#121513; --surface:#1B1F1C; --ink:#E5E8E2; --muted:#9BA39C; --line:#3A403C; --line-soft:#2A2F2C;
     --key:#0A0C0B; --key-ink:#E9EBE6; --sel:#1E2D21; --sel-line:#4DB866;
     --branco:#E9EAE4; --branco-ink:#141615; --branco-line:#E9EAE4;
-    --corrige:#E58A33; --corrige-ink:#1E1103; --confirma:#329C4C; --confirma-ink:#F3FFF5;
+    --corrige:#E58A33; --corrige-ink:#1E1103; --confirma:#1F6E35; --confirma-ink:#FFFFFF;
     --focus:#7EA8F0;
     --s1:#C25563; --s2:#D57A80; --s3:#E2B2B1; --s4:#8D938B; --s5:#A7BEDD; --s6:#6E95C8; --s7:#4A6FA0;
+    --bub-base:.26;
     color-scheme:dark;
   }
 }
@@ -42,21 +46,23 @@
   --bg:#121513; --surface:#1B1F1C; --ink:#E5E8E2; --muted:#9BA39C; --line:#3A403C; --line-soft:#2A2F2C;
   --key:#0A0C0B; --key-ink:#E9EBE6; --sel:#1E2D21; --sel-line:#4DB866;
   --branco:#E9EAE4; --branco-ink:#141615; --branco-line:#E9EAE4;
-  --corrige:#E58A33; --corrige-ink:#1E1103; --confirma:#329C4C; --confirma-ink:#F3FFF5;
+  --corrige:#E58A33; --corrige-ink:#1E1103; --confirma:#1F6E35; --confirma-ink:#FFFFFF;
   --focus:#7EA8F0;
   --s1:#C25563; --s2:#D57A80; --s3:#E2B2B1; --s4:#8D938B; --s5:#A7BEDD; --s6:#6E95C8; --s7:#4A6FA0;
+  --bub-base:.26;
   color-scheme:dark;
 }
 
 *{box-sizing:border-box}
-body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:17px; line-height:1.5}
-.wrap{max-width:680px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:20px 56px; display:flex; flex-direction:column; gap:32px}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:1.0625rem; line-height:1.55}
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+.wrap{position:relative; z-index:1; max-width:680px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:20px 56px; display:flex; flex-direction:column; gap:32px}
 button,input{font:inherit; color:inherit}
 :focus-visible{outline:3px solid var(--focus); outline-offset:2px}
 
 /* Cabeçalho */
 .top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; border-bottom:2px solid var(--ink); padding-bottom:10px}
-.mark{font-family:var(--f-display); font-stretch:72%; font-weight:850; text-transform:uppercase; font-size:1.25rem; letter-spacing:.01em; line-height:1}
+.mark{margin:0; font-family:var(--f-display); font-stretch:72%; font-weight:850; text-transform:uppercase; font-size:1.25rem; letter-spacing:.01em; line-height:1}
 .mark span{font-weight:500}
 .tag{font-family:var(--f-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
 
@@ -65,19 +71,60 @@ h1,h2{text-wrap:balance; margin:0}
 .screen{display:flex; flex-direction:column; gap:24px}
 
 /* Abertura */
-.hero h1{font-family:var(--f-display); font-stretch:68%; font-weight:850; text-transform:uppercase; font-size:clamp(2.6rem, 11vw, 4.4rem); line-height:.92; letter-spacing:-.005em}
-.hero h1 em{font-style:normal; color:var(--confirma)}
-.lede{margin:0; max-width:58ch; font-size:1.06rem}
+.bg-illus{position:fixed; inset:0; z-index:0; pointer-events:none;
+  -webkit-mask-image:radial-gradient(ellipse 62% 48% at 50% 44%, transparent 12%, rgba(0,0,0,.35) 52%, #000 86%);
+  mask-image:radial-gradient(ellipse 62% 48% at 50% 44%, transparent 12%, rgba(0,0,0,.35) 52%, #000 86%)}
+.bg-illus svg{display:block; width:100%; height:100%}
+.bub{transition:opacity .35s ease}
+.bub path{transform-box:fill-box; animation:drift 7s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translateY(-5px)} to{transform:translateY(5px)}}
+.intro{align-items:center; text-align:center; gap:28px; padding-block:clamp(12px, 5vh, 48px) 8px}
+.intro-hero{display:flex; flex-direction:column; align-items:center; gap:14px}
+.intro h2{font-family:var(--f-display); font-stretch:64%; font-weight:900; text-transform:uppercase; font-size:clamp(3.1rem, 15vw, 6.4rem); line-height:.86; letter-spacing:-.005em}
+.lede{margin:0 auto; max-width:46ch; font-size:1.06rem}
+.self-pick{width:100%; display:flex; flex-direction:column; gap:6px}
+.self-out{margin:0; min-height:1.15em; font-family:var(--f-display); font-stretch:74%; font-weight:850; text-transform:uppercase; font-size:clamp(1.6rem, 7vw, 2.3rem); line-height:1.1}
+.self-out.idle{color:var(--muted); font-weight:600}
+.spec{-webkit-appearance:none; appearance:none; width:100%; height:48px; margin:0; background:transparent; cursor:grab}
+.spec:active{cursor:grabbing}
+.spec:focus-visible{outline:none}
+.spec::-webkit-slider-runnable-track{height:20px; border-radius:10px; background:var(--grad)}
+.spec::-moz-range-track{height:20px; border-radius:10px; background:var(--grad)}
+.spec::-webkit-slider-thumb{-webkit-appearance:none; appearance:none; width:38px; height:38px; margin-top:-9px; border-radius:50%; background:var(--surface); border:4px solid var(--ink); box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.spec::-moz-range-thumb{width:30px; height:30px; border-radius:50%; background:var(--surface); border:4px solid var(--ink); box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.spec:not(.touched)::-webkit-slider-thumb{animation:nudge 1.8s ease-in-out infinite}
+.spec:not(.touched)::-moz-range-thumb{animation:nudge 1.8s ease-in-out infinite}
+.spec:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px var(--focus)}
+.spec:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px var(--focus)}
+.spec.skipped::-webkit-slider-thumb{opacity:.35}
+.spec.skipped::-moz-range-thumb{opacity:.35}
+@keyframes nudge{0%,100%{box-shadow:0 0 0 0 rgba(0,0,0,.25)} 50%{box-shadow:0 0 0 10px rgba(0,0,0,0)}}
+.spec-labels{padding-inline:19px}
+.linkish{align-self:center; min-height:44px; background:none; border:0; padding:8px 12px; color:var(--muted); text-decoration:underline; text-underline-offset:3px; cursor:pointer; font-size:.9rem}
+.linkish.on{color:var(--ink); font-weight:700}
+.start-col{display:flex; flex-direction:column; align-items:center; gap:14px; width:100%}
+.big-start{width:min(100%, 340px); min-height:70px; font-size:1.12rem}
+.share-link{display:inline-flex; align-items:center; min-height:44px; padding-inline:8px; color:var(--ink); font-weight:700; text-underline-offset:3px}
 
 /* Régua do espectro */
 .ruler-block{display:flex; flex-direction:column; gap:8px}
 .ruler-wrap{position:relative; padding-top:18px}
-.ruler{display:grid; grid-template-columns:var(--cols); height:16px; border-radius:3px; overflow:hidden; gap:2px; background:var(--bg)}
-.ruler i{display:block}
-.ruler.thin{height:10px}
-.ruler-labels{display:grid; grid-template-columns:var(--cols); gap:2px; font-size:clamp(.6rem, 2.6vw, .76rem); line-height:1.2; color:var(--muted); text-align:center}
-.ruler-labels span{min-width:0; overflow-wrap:anywhere}
+.ruler{position:relative; height:16px; border-radius:8px; background:var(--grad)}
+.ruler .tick{position:absolute; top:0; bottom:0; width:2px; margin-left:-1px; background:var(--bg); opacity:.85}
+.axes .ruler .tick{background:var(--surface)}
+.ruler.thin{height:10px; border-radius:5px}
+.ring{position:absolute; top:50%; width:24px; height:24px; border-radius:50%; border:3px solid var(--ink); background:transparent; transform:translate(-50%, -50%)}
+.legend{margin:2px 0 0; display:flex; flex-wrap:wrap; gap:6px 18px; font-size:.82rem; color:var(--muted)}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.lg-pin{width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:9px solid var(--ink)}
+.lg-ring{width:13px; height:13px; border-radius:50%; border:2px solid var(--ink)}
+.ruler-labels{font-size:.82rem; line-height:1.2; color:var(--muted); text-align:center}
+.ruler-labels .lab7{display:grid; grid-template-columns:var(--cols); gap:2px}
+.ruler-labels .lab7 span{min-width:0; hyphens:auto}
+.ruler-labels .lab3{display:none; justify-content:space-between; gap:8px}
 .ruler-labels span.on{color:var(--ink); font-weight:700}
+@media (max-width:559px){ .ruler-labels .lab7{display:none} .ruler-labels .lab3{display:flex} }
+h2[tabindex="-1"]:focus{outline:none}
 .wrapcols{--cols:.85fr .9fr .8fr .9fr .8fr .9fr .85fr}
 .marker{position:absolute; top:0; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; transition:left .9s cubic-bezier(.2,.8,.2,1)}
 .marker::before{content:""; width:0; height:0; border-left:8px solid transparent; border-right:8px solid transparent; border-top:11px solid var(--ink)}
@@ -86,28 +133,18 @@ h1,h2{text-wrap:balance; margin:0}
 .thin-wrap .marker::before{border-left-width:6px; border-right-width:6px; border-top-width:8px}
 .thin-wrap .marker::after{height:13px}
 
-/* Autodefinição */
 fieldset{border:0; margin:0; padding:0; min-width:0}
 legend{padding:0; font-weight:700; font-size:1.02rem; margin-bottom:10px}
-.chips{display:flex; flex-wrap:wrap; gap:8px}
-.chip{position:relative}
-.chip input{position:absolute; opacity:0; width:1px; height:1px}
-.chip label{display:inline-block; padding:7px 12px; border:1px solid var(--line); border-radius:999px; background:var(--surface); cursor:pointer; font-size:.92rem}
-.chip input:checked + label{background:var(--ink); color:var(--surface); border-color:var(--ink)}
-.chip input:focus-visible + label{outline:3px solid var(--focus); outline-offset:2px}
-.note{margin:8px 0 0; font-size:.86rem; color:var(--muted)}
 
 /* Botões da urna */
 .keys{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px}
 .k{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; min-height:60px; border-radius:6px; border:1px solid transparent; cursor:pointer; font-family:var(--f-mono); font-weight:600; font-size:.92rem; letter-spacing:.07em; box-shadow:inset 0 -4px 0 rgba(0,0,0,.2); transition:transform .08s}
-.k small{font-family:var(--f-body); font-weight:400; font-size:.72rem; letter-spacing:0; text-transform:lowercase; opacity:.85}
+.k small{font-family:var(--f-body); font-weight:400; font-size:.8rem; letter-spacing:0; text-transform:lowercase; opacity:.85}
 .k:active:not(:disabled){transform:translateY(2px); box-shadow:inset 0 -2px 0 rgba(0,0,0,.2)}
 .k-branco{background:var(--branco); color:var(--branco-ink); border-color:var(--branco-line)}
 .k-corrige{background:var(--corrige); color:var(--corrige-ink)}
 .k-confirma{background:var(--confirma); color:var(--confirma-ink)}
 .k:disabled{opacity:.42; cursor:not-allowed}
-.start-row{display:grid; grid-template-columns:1fr; gap:12px}
-.start-row .k{min-height:64px; font-size:1.05rem}
 
 /* Pergunta */
 .qhead{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap}
@@ -117,7 +154,11 @@ legend{padding:0; font-weight:700; font-size:1.02rem; margin-bottom:10px}
 .case{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:20px; display:flex; flex-direction:column; gap:12px}
 .case h2{font-family:var(--f-display); font-stretch:78%; font-weight:800; font-size:clamp(1.5rem, 5.5vw, 2rem); line-height:1.02; text-transform:uppercase}
 .case p{margin:0; max-width:62ch}
-details summary{cursor:pointer; font-family:var(--f-mono); font-size:.74rem; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+details summary{list-style:none; cursor:pointer; min-height:44px; display:flex; align-items:center; gap:8px; font-family:var(--f-mono); font-size:.74rem; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:""; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:7px solid currentColor; transition:transform .2s}
+details[open] summary::before{transform:rotate(90deg)}
+.legend i{display:inline-block}
 .notes ul{margin:10px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px}
 .notes li{position:relative; padding-left:16px; font-size:.93rem; color:var(--muted); max-width:62ch}
 .notes li::before{content:""; position:absolute; left:0; top:.6em; width:6px; height:6px; background:var(--muted)}
@@ -134,7 +175,7 @@ details summary{cursor:pointer; font-family:var(--f-mono); font-size:.74rem; fon
 .opt input:checked + label{border-color:var(--sel-line); background:var(--sel); box-shadow:0 0 0 1px var(--sel-line)}
 .opt input:checked + label .num{background:var(--confirma); color:var(--confirma-ink)}
 .opt input:focus-visible + label{outline:3px solid var(--focus); outline-offset:2px}
-.hint{margin:0; font-size:.8rem; color:var(--muted)}
+.hint{margin:0; font-size:.86rem; color:var(--muted)}
 
 /* Resultado */
 .res-label{font-family:var(--f-display); font-stretch:66%; font-weight:900; text-transform:uppercase; font-size:clamp(3rem, 15vw, 5.6rem); line-height:.9}
@@ -143,8 +184,13 @@ details summary{cursor:pointer; font-family:var(--f-mono); font-size:.74rem; fon
 .axis-head{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:.92rem}
 .axis-head b{font-weight:700}
 .axis-head span{color:var(--muted)}
-.axis-poles{display:flex; justify-content:space-between; font-size:.74rem; color:var(--muted); gap:8px}
+.axis-poles{display:flex; justify-content:space-between; font-size:.8rem; color:var(--muted); gap:8px}
 .compare{margin:0; padding:14px 16px; border-left:4px solid var(--ink); background:var(--surface); max-width:62ch}
+.compare strong{display:block; font-family:var(--f-display); font-stretch:80%; font-weight:800; text-transform:uppercase; font-size:1.25rem; line-height:1.1; margin-bottom:4px}
+.vote{display:flex; flex-direction:column; gap:10px; padding:18px 20px; background:var(--surface); border:1px solid var(--line); border-top:5px solid var(--s2); border-radius:6px}
+.vote h3{margin:0; font-family:var(--f-display); font-stretch:78%; font-weight:850; text-transform:uppercase; font-size:1.5rem; line-height:1.05; text-wrap:balance}
+.vote p{margin:0; max-width:62ch}
+.vote .btn{align-self:flex-start}
 .desc{margin:0; max-width:62ch}
 .share{display:flex; flex-direction:column; gap:10px}
 .btn{display:flex; align-items:center; justify-content:center; text-align:center; min-height:52px; padding:10px 16px; border-radius:6px; font-weight:700; text-decoration:none; cursor:pointer; border:1px solid transparent}
@@ -160,58 +206,58 @@ details summary{cursor:pointer; font-family:var(--f-mono); font-size:.74rem; fon
 /* Rodapé */
 footer{border-top:1px solid var(--line); padding-top:16px; display:flex; flex-direction:column; gap:8px}
 footer p{margin:0; font-size:.86rem; color:var(--muted); max-width:62ch}
-footer h3{margin:0; font-family:var(--f-mono); font-size:.74rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink)}
+footer h2{margin:0; font-family:var(--f-mono); font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink)}
 
 @media (min-width:560px){
-  .start-row{grid-template-columns:2fr 1fr}
   .share{display:grid; grid-template-columns:1fr 1fr}
   .share .btn-ghost, .share .copy-field{grid-column:1 / -1}
 }
 @media (prefers-reduced-motion: reduce){
-  .fade{animation:none} .marker,.bar i{transition:none}
+  .fade,.bub path,.spec::-webkit-slider-thumb{animation:none} .marker,.bar i,.bub{transition:none}
+  .spec::-moz-range-thumb{animation:none}
 }
 </style>
 </head>
 <body>
+<div class="bg-illus" id="bg-illus" aria-hidden="true"></div>
 <div class="wrap">
   <header class="top">
-    <div class="mark">Espectro <span>na Prática</span></div>
+    <h1 class="mark">Espectro <span>na Prática</span></h1>
     <div class="tag">casos reais, não rótulos</div>
   </header>
 
-  <main>
+  <main id="main">
     <!-- ABERTURA -->
-    <section class="screen" id="s-intro">
-      <div class="hero screen" style="gap:16px">
-        <h1>Esquerda ou direita? <em>Na prática.</em></h1>
-        <p class="lede">Você vai ler situações concretas do dia a dia brasileiro e escolher o que acha certo. Cada resposta define a próxima pergunta. Em cerca de 8 casos, o teste mostra onde você está no espectro, na economia e nos costumes.</p>
+    <section class="screen intro" id="s-intro" aria-labelledby="intro-title">
+      <div class="intro-hero">
+        <p class="eyebrow">Teste com casos concretos · cerca de 8 perguntas</p>
+        <h2 id="intro-title">Onde você se posiciona?</h2>
+        <p class="lede" id="intro-lede">Arraste no espectro até onde você acha que está. Depois, situações reais vão mostrar onde você fica na prática.</p>
       </div>
 
-      <div class="ruler-block wrapcols" aria-hidden="true">
-        <div class="ruler" id="intro-ruler"></div>
-        <div class="ruler-labels" id="intro-labels"></div>
+      <div class="self-pick">
+        <p class="self-out idle" id="self-out" aria-hidden="true">Arraste para escolher</p>
+        <label class="sr-only" for="self-range">Sua posição no espectro político, de extrema-esquerda a extrema-direita. Use as setas para mover.</label>
+        <input type="range" class="spec" id="self-range" min="-3" max="3" step="0.05" value="0" aria-describedby="intro-lede" aria-valuetext="Ainda não escolhido">
+        <div class="ruler-labels wrapcols spec-labels" id="intro-labels" aria-hidden="true"></div>
+        <button type="button" class="linkish" id="self-skip" aria-pressed="false">Não sei / prefiro não dizer</button>
       </div>
 
-      <fieldset>
-        <legend>Antes de começar: como você se posiciona hoje?</legend>
-        <div class="chips" id="self-chips"></div>
-        <p class="note" id="self-note">Escolha uma opção para começar. Isso não entra no cálculo; serve para comparar com o resultado no final.</p>
-      </fieldset>
-
-      <div class="start-row">
-        <button class="k k-confirma" id="btn-start" type="button" disabled>COMEÇAR<small>cerca de 8 casos</small></button>
-        <a class="btn btn-sec" id="share-intro" href="#" target="_blank" rel="noopener">Enviar o teste pelo WhatsApp</a>
+      <div class="start-col">
+        <button class="k k-confirma big-start" id="btn-start" type="button" disabled aria-describedby="start-help">COMEÇAR<small>cerca de 8 casos</small></button>
+        <p class="sr-only" id="start-help">Escolha sua posição no espectro, ou "não sei", para liberar o botão.</p>
+        <a class="share-link" id="share-intro" href="#" target="_blank" rel="noopener">Enviar o teste pelo WhatsApp<span class="sr-only"> (abre o WhatsApp)</span></a>
       </div>
     </section>
 
     <!-- PERGUNTA -->
-    <section class="screen" id="s-q" hidden>
+    <section class="screen" id="s-q" hidden aria-labelledby="q-title">
       <div class="screen" style="gap:8px">
         <div class="qhead">
           <p class="eyebrow" id="q-eyebrow">Caso 1</p>
           <span class="prog" id="q-prog"></span>
         </div>
-        <div class="bar"><i id="q-bar"></i></div>
+        <div class="bar" aria-hidden="true"><i id="q-bar"></i></div>
       </div>
 
       <article class="case fade" id="q-card">
@@ -229,38 +275,48 @@ footer h3{margin:0; font-family:var(--f-mono); font-size:.74rem; text-transform:
       </fieldset>
 
       <div class="keys">
-        <button class="k k-branco" id="btn-branco" type="button">BRANCO<small>pular</small></button>
-        <button class="k k-corrige" id="btn-corrige" type="button">CORRIGE<small>voltar</small></button>
-        <button class="k k-confirma" id="btn-confirma" type="button" disabled>CONFIRMA<small>responder</small></button>
+        <button class="k k-branco" id="btn-branco" type="button" aria-label="Branco: pular esta pergunta">BRANCO<small>pular</small></button>
+        <button class="k k-corrige" id="btn-corrige" type="button" aria-label="Corrige: voltar para a pergunta anterior">CORRIGE<small>voltar</small></button>
+        <button class="k k-confirma" id="btn-confirma" type="button" disabled aria-label="Confirma: responder e ir para a próxima">CONFIRMA<small>responder</small></button>
       </div>
       <p class="hint">No teclado: números escolhem, Enter confirma.</p>
     </section>
 
     <!-- RESULTADO -->
-    <section class="screen" id="s-res" hidden>
+    <section class="screen" id="s-res" hidden aria-labelledby="r-label">
       <div class="screen" style="gap:10px">
         <p class="eyebrow">Seu resultado</p>
         <h2 class="res-label" id="r-label" tabindex="-1"></h2>
       </div>
 
-      <div class="ruler-block wrapcols">
+      <div class="ruler-block wrapcols" aria-hidden="true">
         <div class="ruler-wrap">
           <div class="marker" id="r-marker"></div>
           <div class="ruler" id="r-ruler"></div>
         </div>
         <div class="ruler-labels" id="r-labels"></div>
+        <p class="legend" id="r-legend"><span><i class="lg-pin"></i>suas respostas</span><span id="lg-self"><i class="lg-ring"></i>onde você se colocou</span></p>
       </div>
+
+      <p class="compare" id="r-compare" hidden></p>
 
       <div class="axes" id="r-axes"></div>
 
-      <p class="compare" id="r-compare" hidden></p>
       <p class="desc" id="r-desc"></p>
 
+      <section class="vote" id="r-vote" hidden aria-labelledby="vote-title">
+        <p class="eyebrow">Mensagem de quem fez este teste</p>
+        <h3 id="vote-title">Antes do dia 25, um convite</h3>
+        <p id="r-vote-text"></p>
+        <a class="btn btn-sec" href="https://divulgacandcontas.tse.jus.br/" target="_blank" rel="noopener">Comparar os planos de governo no site do TSE<span class="sr-only"> (abre em nova aba)</span></a>
+      </section>
+
       <div class="share">
-        <a class="btn btn-main" id="share-res" href="#" target="_blank" rel="noopener">Compartilhar meu resultado no WhatsApp</a>
-        <a class="btn btn-sec" id="share-test" href="#" target="_blank" rel="noopener">Enviar o teste, sem meu resultado</a>
+        <a class="btn btn-main" id="share-res" href="#" target="_blank" rel="noopener">Compartilhar meu resultado no WhatsApp<span class="sr-only"> (abre o WhatsApp)</span></a>
+        <a class="btn btn-sec" id="share-test" href="#" target="_blank" rel="noopener">Enviar o teste, sem meu resultado<span class="sr-only"> (abre o WhatsApp)</span></a>
         <button class="btn btn-ghost" id="btn-copy" type="button">Copiar link do teste</button>
         <input class="copy-field" id="copy-field" type="text" readonly hidden aria-label="Link do teste">
+        <p class="sr-only" id="copy-status" role="status"></p>
       </div>
 
       <details class="answers">
@@ -273,12 +329,12 @@ footer h3{margin:0; font-family:var(--f-mono); font-size:.74rem; text-transform:
   </main>
 
   <footer>
-    <h3>Como funciona</h3>
+    <h2>Como funciona</h2>
     <p>O teste mede dois eixos: economia e papel do Estado; costumes e segurança. Cada resposta ajusta uma estimativa da sua posição em cada eixo, e a próxima pergunta é a que mais ajuda a reduzir a dúvida naquele ponto, como num jogo de adivinhação. O resultado geral é a média dos dois eixos.</p>
     <p>Os casos e as observações apresentam argumentos dos dois lados, e a ordem das alternativas é embaralhada. O resultado é uma aproximação, não um diagnóstico. Nenhuma resposta é guardada ou enviada.</p>
+    <p><strong>Quem fez:</strong> um eleitor de Lula. O cálculo do resultado é igual para todo mundo e não leva em conta em quem você vota. Depois do resultado, quem se via mais à direita do que as próprias respostas indicam vê um convite para refletir sobre o voto no segundo turno.</p>
   </footer>
 </div>
-
 <script>
 /*CORE-START*/
 const QUESTIONS = [
@@ -560,43 +616,99 @@ const AXES = {
   eco:{ name:'Economia e papel do Estado', left:'mais Estado', right:'mais mercado', word:'economia' },
   soc:{ name:'Costumes e segurança', left:'mais progressista', right:'mais conservador', word:'costumes e segurança' }
 };
-const SEG_W = [.85,.9,.8,.9,.8,.9,.85];
+// A mensagem sobre o voto some quando as urnas fecham no segundo turno (25/10/2026, 17h de Brasília).
+const RUNOFF_CLOSE = Date.parse('2026-10-25T20:00:00Z');
 
 const $ = id => document.getElementById(id);
-const state = { self:null, history:[], current:null, sel:null, order:{} };
+const state = { self:null, selfX:0, touched:false, skip:false, history:[], current:null, sel:null, order:{} };
 
 function lower(i){ return LABELS[i].toLowerCase(); }
 function pct(x){ return Math.max(1.5, Math.min(98.5, (x + 3) / 6 * 100)); }
 function wa(text){ return 'https://wa.me/?text=' + encodeURIComponent(text); }
 function testText(){ return 'Faz esse teste? São situações concretas, umas 8 perguntas, e no fim ele mostra onde você fica no espectro político, da extrema-esquerda à extrema-direita: ' + SHARE_URL; }
-
-function fillRuler(el, thin){
-  el.innerHTML = SEG_W.map((_, i) => `<i style="background:var(--s${i + 1})"></i>`).join('');
-  if (thin) el.classList.add('thin');
-}
+function buildRuler(el){ el.innerHTML = CUTS.map(c => `<span class="tick" style="left:${(c + 3) / 6 * 100}%"></span>`).join(''); }
 function fillLabels(el, on){
-  el.innerHTML = RULER_LABELS.map((t, i) => `<span class="${i === on ? 'on' : ''}">${t}</span>`).join('');
+  const seven = RULER_LABELS.map((t, i) => `<span class="${i === on ? 'on' : ''}">${t}</span>`).join('');
+  const three = [[0, 'Extrema-esquerda'], [3, 'Centro'], [6, 'Extrema-direita']].map(([i, t]) => `<span class="${i === on ? 'on' : ''}">${t}</span>`).join('');
+  el.innerHTML = `<div class="lab7">${seven}</div><div class="lab3">${three}</div>`;
 }
 
-// Abertura
-fillRuler($('intro-ruler'));
+// Ilustração de fundo: balões de opinião espalhados pelo espectro
+const bubbles = [];
+function drawBubbles(){
+  const el = $('bg-illus');
+  const W = Math.max(320, window.innerWidth), H = Math.max(480, window.innerHeight);
+  let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const n = Math.round(Math.min(64, Math.max(26, W * H / 16000)));
+  const scale = Math.min(1, Math.max(.6, W / 1000));
+  const parts = [];
+  for (let i = 0; i < n; i++){
+    const x = rnd() * W, y = rnd() * H, w = (44 + rnd() * 86) * scale, h = w * (.42 + rnd() * .22);
+    const f = x / W, c = Math.min(6, Math.floor(f * 7)) + 1, filled = rnd() < .55;
+    const tx = rnd() < .5 ? w * .62 : w * .16, r = Math.min(14, h / 2.4);
+    const d = `M${r} 0H${w - r}Q${w} 0 ${w} ${r}V${h - r}Q${w} ${h} ${w - r} ${h}H${tx + 16}L${tx + 3} ${h + 15}L${tx + 5} ${h}H${r}Q0 ${h} 0 ${h - r}V${r}Q0 0 ${r} 0Z`;
+    const paint = filled ? `fill:var(--s${c})` : `fill:none;stroke:var(--s${c});stroke-width:2.5`;
+    parts.push(`<g class="bub" data-f="${f.toFixed(3)}" transform="translate(${(x - w / 2).toFixed(1)} ${(y - h / 2).toFixed(1)})"><path d="${d}" style="${paint};animation-delay:${(-rnd() * 7).toFixed(2)}s"></path></g>`);
+  }
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" focusable="false">${parts.join('')}</svg>`;
+  bubbles.length = 0;
+  el.querySelectorAll('.bub').forEach(g => bubbles.push({ g, f:+g.dataset.f }));
+  lightBubbles();
+}
+function lightBubbles(){
+  const f = state.touched && !state.skip ? (state.selfX + 3) / 6 : null;
+  const base = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bub-base')) || .2;
+  bubbles.forEach(b => {
+    const d = f == null ? 1 : Math.abs(b.f - f);
+    b.g.style.opacity = (base + .6 * Math.exp(-(d * d) / (2 * .07 * .07))).toFixed(3);
+  });
+}
+let lastW = window.innerWidth, resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => { if (Math.abs(window.innerWidth - lastW) > 40){ lastW = window.innerWidth; drawBubbles(); } }, 200);
+});
+
+// Abertura: o espectro arrastável
+const range = $('self-range');
+function pickPosition(){
+  state.touched = true; state.skip = false;
+  state.selfX = Number(range.value);
+  const c = category(state.selfX);
+  range.classList.add('touched'); range.classList.remove('skipped');
+  range.setAttribute('aria-valuetext', LABELS[c]);
+  $('self-out').textContent = LABELS[c]; $('self-out').classList.remove('idle');
+  $('self-skip').classList.remove('on'); $('self-skip').setAttribute('aria-pressed', 'false');
+  fillLabels($('intro-labels'), c);
+  $('btn-start').disabled = false;
+  lightBubbles();
+}
+range.addEventListener('input', pickPosition);
+range.addEventListener('change', pickPosition);
+range.addEventListener('pointerup', () => { if (!state.touched || state.skip) pickPosition(); });
+$('self-skip').addEventListener('click', () => {
+  state.skip = true; state.touched = false;
+  range.classList.add('skipped'); range.classList.remove('touched');
+  range.setAttribute('aria-valuetext', 'Não sei');
+  $('self-out').textContent = 'Sem posição definida'; $('self-out').classList.add('idle');
+  $('self-skip').classList.add('on'); $('self-skip').setAttribute('aria-pressed', 'true');
+  fillLabels($('intro-labels'), -1);
+  $('btn-start').disabled = false;
+  lightBubbles();
+});
 fillLabels($('intro-labels'), -1);
-$('self-chips').innerHTML = LABELS.concat(['Não sei / prefiro não dizer']).map((t, i) => {
-  const v = i < 7 ? i : '';
-  return `<div class="chip"><input type="radio" name="self" id="self-${i}" value="${v}"><label for="self-${i}">${t}</label></div>`;
-}).join('');
-$('self-chips').addEventListener('change', () => { $('btn-start').disabled = false; });
 $('share-intro').href = wa(testText());
+drawBubbles();
 
 function show(id){
   ['s-intro', 's-q', 's-res'].forEach(s => { $(s).hidden = s !== id; });
+  $('bg-illus').hidden = id !== 's-intro';
   window.scrollTo(0, 0);
 }
 
 $('btn-start').addEventListener('click', () => {
-  const picked = document.querySelector('input[name="self"]:checked');
-  if (!picked) return;
-  state.self = picked.value === '' ? null : Number(picked.value);
+  if (!state.touched && !state.skip) return;
+  state.self = state.skip ? null : category(state.selfX);
   state.history = []; state.order = {};
   next();
 });
@@ -623,14 +735,16 @@ function renderQ(){
   const answered = state.history.filter(h => h.k != null).length;
   show('s-q');
   $('q-eyebrow').textContent = `Caso ${n} · ${AXES[q.axis].name}`;
+  let prog;
   if (answered >= RULES.min){
-    $('q-prog').textContent = 'Pergunta extra para afinar';
+    prog = 'Pergunta extra para afinar';
     $('q-bar').style.width = '100%';
   } else {
-    $('q-prog').textContent = `${n} de cerca de ${RULES.min}`;
+    prog = `${n} de cerca de ${RULES.min}`;
     $('q-bar').style.width = Math.min(100, (n - 1) / RULES.min * 100) + '%';
   }
-  $('q-title').textContent = q.title;
+  $('q-prog').textContent = prog;
+  $('q-title').innerHTML = `<span class="sr-only">Caso ${n}, ${prog}. </span>${q.title}`;
   $('q-case').textContent = q.case;
   $('q-notes').innerHTML = q.notes.map(t => `<li>${t}</li>`).join('');
   $('q-ask').textContent = q.ask;
@@ -638,7 +752,7 @@ function renderQ(){
   $('q-opts').innerHTML = order.map((k, pos) => `
     <div class="opt">
       <input type="radio" name="opt" id="opt-${pos}" value="${k}" ${state.sel === k ? 'checked' : ''}>
-      <label for="opt-${pos}"><span class="num">${pos + 1}</span><span>${q.opts[k][0]}</span></label>
+      <label for="opt-${pos}"><span class="num" aria-hidden="true">${pos + 1}</span><span>${q.opts[k][0]}</span></label>
     </div>`).join('');
   $('btn-confirma').disabled = state.sel == null;
   const card = $('q-card');
@@ -681,7 +795,11 @@ function showResult(){
   const r = computeResult(state.history);
   show('s-res');
   $('r-label').textContent = LABELS[r.cat];
-  fillRuler($('r-ruler'));
+
+  const ruler = $('r-ruler');
+  buildRuler(ruler);
+  if (state.self != null) ruler.insertAdjacentHTML('beforeend', `<span class="ring" style="left:${pct(state.selfX)}%"></span>`);
+  $('lg-self').hidden = state.self == null;
   fillLabels($('r-labels'), r.cat);
   const marker = $('r-marker');
   marker.style.left = '50%';
@@ -691,11 +809,11 @@ function showResult(){
     const s = r[ax], c = ax === 'eco' ? r.catEco : r.catSoc;
     return `<div class="axis">
       <div class="axis-head"><b>${AXES[ax].name}</b><span>${LABELS[c]}</span></div>
-      <div class="ruler-wrap thin-wrap wrapcols">
+      <div class="ruler-wrap thin-wrap" aria-hidden="true">
         <div class="marker" style="left:${pct(s.mean)}%"></div>
-        <div class="ruler thin">${SEG_W.map((_, i) => `<i style="background:var(--s${i + 1})"></i>`).join('')}</div>
+        <div class="ruler thin">${CUTS.map(cu => `<span class="tick" style="left:${(cu + 3) / 6 * 100}%"></span>`).join('')}</div>
       </div>
-      <div class="axis-poles"><span>${AXES[ax].left}</span><span>${AXES[ax].right}</span></div>
+      <div class="axis-poles" aria-hidden="true"><span>${AXES[ax].left}</span><span>${AXES[ax].right}</span></div>
     </div>`;
   }).join('');
 
@@ -709,15 +827,26 @@ function showResult(){
   if (state.self == null){ cmp.hidden = true; }
   else {
     const d = r.cat - state.self;
-    let t;
-    if (d === 0) t = `Você se definiu como ${lower(state.self)}, e suas respostas aos casos confirmam isso.`;
-    else if (Math.abs(d) === 1) t = `Você se definiu como ${lower(state.self)}. Suas respostas ficaram bem perto disso, em ${lower(r.cat)}.`;
-    else {
-      const gapEco = Math.abs(r.catEco - state.self), gapSoc = Math.abs(r.catSoc - state.self);
-      const where = gapEco >= gapSoc ? AXES.eco.word : AXES.soc.word;
-      t = `Você se definiu como ${lower(state.self)}, mas suas respostas aos casos ficaram em ${lower(r.cat)}, ${d < 0 ? 'mais à esquerda' : 'mais à direita'} do que o rótulo que você escolheu. A maior diferença está nas suas respostas sobre ${where}.`;
+    let head, body;
+    if (d === 0){
+      head = 'Exatamente onde você se colocou';
+      body = `Você se colocou em ${lower(state.self)}, e suas respostas aos casos confirmam.`;
+    } else if (Math.abs(d) === 1){
+      head = 'Perto do que você achava';
+      body = `Você se colocou em ${lower(state.self)}. Suas respostas ficaram em ${lower(r.cat)}, um passo ${d < 0 ? 'à esquerda' : 'à direita'}.`;
+    } else {
+      const where = Math.abs(r.catEco - state.self) >= Math.abs(r.catSoc - state.self) ? AXES.eco.word : AXES.soc.word;
+      head = 'Diferente do que você achava';
+      body = `Você se colocou em ${lower(state.self)}, mas suas respostas aos casos ficaram em ${lower(r.cat)}, mais ${d < 0 ? 'à esquerda' : 'à direita'}. A maior diferença está nas suas respostas sobre ${where}.`;
     }
-    cmp.textContent = t; cmp.hidden = false;
+    cmp.innerHTML = `<strong>${head}.</strong>${body}`;
+    cmp.hidden = false;
+  }
+
+  const showVote = state.self != null && state.self >= 3 && r.cat <= 2 && Date.now() < RUNOFF_CLOSE;
+  $('r-vote').hidden = !showVote;
+  if (showVote){
+    $('r-vote-text').textContent = `Você se colocou em ${lower(state.self)}, mas suas respostas aos casos ficaram em ${lower(r.cat)}: na prática, você está mais perto do campo político de Lula do que imaginava. Se você não pretendia votar 13, vale repensar. Compare as propostas e pense no Brasil que você quer para os próximos quatro anos.`;
   }
 
   $('share-res').href = wa(`Fiz o teste Espectro na Prática e deu ${LABELS[r.cat]} (economia: ${lower(r.catEco)}; costumes: ${lower(r.catSoc)}). São casos concretos, umas 8 perguntas. Faça o seu: ${SHARE_URL}`);
@@ -732,13 +861,12 @@ function showResult(){
 }
 
 $('btn-copy').addEventListener('click', () => {
-  const btn = $('btn-copy'), field = $('copy-field');
-  const fallback = () => { field.value = SHARE_URL; field.hidden = false; field.focus(); field.select(); btn.textContent = 'Selecione e copie o link abaixo'; };
-  try {
-    navigator.clipboard.writeText(SHARE_URL).then(() => { btn.textContent = 'Link copiado'; setTimeout(() => { btn.textContent = 'Copiar link do teste'; }, 2200); }, fallback);
-  } catch (err){ fallback(); }
+  const btn = $('btn-copy'), field = $('copy-field'), status = $('copy-status');
+  const done = () => { btn.textContent = 'Link copiado'; status.textContent = 'Link copiado'; setTimeout(() => { btn.textContent = 'Copiar link do teste'; }, 2200); };
+  const fallback = () => { field.value = SHARE_URL; field.hidden = false; field.focus(); field.select(); btn.textContent = 'Selecione e copie o link abaixo'; status.textContent = 'Não foi possível copiar sozinho. O link está selecionado no campo abaixo.'; };
+  try { navigator.clipboard.writeText(SHARE_URL).then(done, fallback); } catch (err){ fallback(); }
 });
-$('btn-restart').addEventListener('click', () => { show('s-intro'); });
+$('btn-restart').addEventListener('click', () => { show('s-intro'); range.focus({ preventScroll:true }); });
 </script>
 
 </body>
